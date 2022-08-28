@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="cerceve">
+      <div class="ustdiv"><button>YENİ OYUN</button> </div>
+      <div class="oyunalani" id="saha"></div>
+    </div>
+    <script src="jquery-3.6.1.min.js"></script>
+    <script>
+      let resimdizisi = new Array();
+      let acilanresimdizisi = new Array();
+      let acilanresimsay = 0;
+
+      function baslangic() {
+        let i, j, rasgele;
+        let resimSayisi = 15;
+        let rasgeleResimdizisi = new Array();
+
+        for (i = 0; i < 2; i++) {
+          for (j = 1; j < resimSayisi; j++) {
+            resimdizisi.push(j + ".jpg");
+          }
+        }
+        for (i = 0; i < resimSayisi * 2; i++) {
+          rasgele = Math.round(Math.random() * (resimdizisi.length - 1));
+          rasgeleResimdizisi[i] = resimdizisi[rasgele];
+          resimdizisi.splice(rasgele, 1);
+        }
+
+        resimdizisi = rasgeleResimdizisi;
+      }
+      $(document).ready(function (e) {
+        $(".ustdiv").click(function () {
+          $("#saha").empty();
+          resimdizisi = [];
+          baslangic();
+          let indis = 0;
+
+          for (let i = 0; i < 4; i++) {
+            for (let j = 0; j < 7; j++, indis++) {
+              $(".oyunalani").append(
+                "<div class='kutu'><img src='images/arkaplan.jpg' id='" +
+                  resimdizisi[indis] +
+                  "' onclick='resimac(this)'></div"
+              );
+            }
+            $("#saha").append("<div class='altsatir'></div>");
+          }
+        });
+      });
+
+      function resimac(nesne) {
+        if (acilanresimsay != 2) {
+          if (acilanresimsay == 0) {
+            nesne.src = "images/" + nesne.id;
+            acilanresimdizisi[0] = nesne;
+            acilanresimsay = 1;
+          } else if (nesne != acilanresimdizisi[0]) {
+            nesne.src = "images/" + nesne.id;
+            acilanresimdizisi[1] = nesne;
+            acilanresimsay = 2;
+            setTimeout("bekle()", 1000);
+          }
+        }
+      }
+
+      function bekle() {
+        if (acilanresimdizisi[1].src == acilanresimdizisi[0].src) {
+          acilanresimdizisi[1].hidden = true;
+          acilanresimdizisi[0].hidden = true;
+        } else {
+          acilanresimdizisi[0].src = "images/arkaplan.jpg";
+          acilanresimdizisi[1].src = "images/arkaplan.jpg";
+        }
+        acilanresimsay = 0;
+      }
+    </script>
+  </body>
+</html>

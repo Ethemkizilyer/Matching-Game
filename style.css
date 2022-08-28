@@ -1,0 +1,25 @@
+.cerceve{
+    width: 100%;
+    margin: auto;
+}
+.ustdiv{
+    width: 100%;
+    text-align: center;
+}
+.kutu{
+    width: 170px;
+    height: 135px;
+    /* display: flex; */
+    
+   float: right;
+    border: 5px solid #03f ;
+    margin: 5px;
+}
+
+.altsatir{
+    clear: both;
+}
+img{
+   width: 170px;
+    height: 135px;
+}
